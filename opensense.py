@@ -30,7 +30,7 @@ def start(message):
 def callback_worker(call):
     if call.data == 'yuhniu':
         yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
-        data = json.load(yhnui.text)
+        data = json.loads(yhnui.text.read())
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
@@ -53,7 +53,7 @@ def callback_worker(call):
             bot.send_message(message.chat.id, eror)
     elif call.data == 'prokof':
         prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
-        data = json.load(prokofeva.text)
+        data = json.loads(prokofeva.text.read())
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
@@ -76,7 +76,7 @@ def callback_worker(call):
             bot.send_message(message.chat.id, eror)
     elif call.data == 'dvorec':
         dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
-        data = json.load(dvorec.text)
+        data = json.loads(dvorec.text.read())
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':

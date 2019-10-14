@@ -30,7 +30,7 @@ def start(message):
 def callback_worker(call):
     if call.data == 'yuhniu':
         yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
-        data = json.load(yuhnui.text)
+        data = json.load(yhnui.text)
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':

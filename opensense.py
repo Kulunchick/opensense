@@ -59,6 +59,9 @@ def callback_worker(call):
                     if i['title'] == 'Luftdruck':
                         yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
                 bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode="Markdown")
+        except:
+            eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
+            bot.send_message(call.message.chat.id, eror)
     elif call.data == 'prokof':
         try:
             yuhniu_answer = '*KURAHOVO.ONLINE #2 (Проспект Прокофьева)*' + '\n'

@@ -44,10 +44,10 @@ def callback_worker(call):
                     yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                 if i['title'] == 'Luftdruck':
                     yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
-            bot.send_message(message.chat.id, yuhniu_answer)
+            bot.send_message(call.chat.id, yuhniu_answer)
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
-            bot.send_message(message.chat.id, eror)
+            bot.send_message(call.chat.id, eror)
     elif call.data == 'prokof':
         try:
             prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
@@ -64,10 +64,10 @@ def callback_worker(call):
                     yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                 if i['title'] == 'Luftdruck':
                     yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
-            bot.send_message(message.chat.id, yuhniu_answer)
+            bot.send_message(call.chat.id, yuhniu_answer)
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
-            bot.send_message(message.chat.id, eror)
+            bot.send_message(call.chat.id, eror)
     elif call.data == 'dvorec':
         try:
             dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
@@ -84,10 +84,10 @@ def callback_worker(call):
                     yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                 if i['title'] == 'Luftdruck':
                     yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
-            bot.send_message(message.chat.id, yuhniu_answer)
+            bot.send_message(call.chat.id, yuhniu_answer)
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
-            bot.send_message(message.chat.id, eror) 
+            bot.send_message(call.chat.id, eror) 
     else:
         bot.send_message(message.chat.id, "Нажми на нужную тебе кнопку!") 
 

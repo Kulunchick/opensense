@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import telebot
+from telebot import telegram
 from telebot import types
 import config
 

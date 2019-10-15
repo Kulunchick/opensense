@@ -35,19 +35,19 @@ def callback_worker(call):
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
-                    yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'PM2.5':
-                    yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'Temperatur':
-                    yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'rel. Luftfeuchte':
-                    yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'Luftdruck':
-                    yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt']
+                    yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
             bot.send_message(message.chat.id, yuhniu_answer)
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
@@ -55,23 +55,23 @@ def callback_worker(call):
     elif call.data == 'prokof':
         prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
         prok = json.dumps(prokofeva.text)
-        data = json.load(prok)
+        data = json.load(prokofeva.json)
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
-                    yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'PM2.5':
-                    yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'Temperatur':
-                    yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'rel. Luftfeuchte':
-                    yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'Luftdruck':
-                    yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt']
+                    yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
             bot.send_message(message.chat.id, yuhniu_answer)
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
@@ -83,19 +83,19 @@ def callback_worker(call):
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
-                    yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'PM2.5':
-                    yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'Temperatur':
-                    yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'rel. Luftfeuchte':
-                    yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt'] + '\n'
+                    yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
             for i in data['sensors']:
                 if i['title'] == 'Luftdruck':
-                    yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + i["lastMeasurement"]['createdAt']
+                    yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
             bot.send_message(message.chat.id, yuhniu_answer)
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'

@@ -9,6 +9,12 @@ path = 'example.json'
 
 bot = telebot.TeleBot(config.token)
 
+markdown = """
+*bold text*
+_italic text_
+[text](URL)
+"""
+
 @bot.message_handler(commands=["start"])
 def cmd_start1(message):
     mess = "Привет! Меня зовут Воздухолов!" + "\n" + "Напиши /get_statistics" + " , и получишь статистику по воздуху." + "\n" + "Мой создатель: @NikolayRisky"
@@ -51,7 +57,7 @@ def callback_worker(call):
                     yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + ' %. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                 if i['title'] == 'Luftdruck':
                     yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
-            bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode=telebot.ParseMode.HTML)
+            bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode="Markdown")
     elif call.data == 'prokof':
         try:
             yuhniu_answer = '<b>KURAHOVO.ONLINE #2 (Проспект Прокофьева)</b>' + '\n'

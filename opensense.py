@@ -31,7 +31,7 @@ def callback_worker(call):
     if call.data == 'yuhniu':
         yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
         yhn = json.dumps(yhnui.text)
-        data = json.load(yhn)
+        data = json.loads(yhn.read())
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
@@ -55,7 +55,7 @@ def callback_worker(call):
     elif call.data == 'prokof':
         prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
         prok = json.dumps(prokofeva.text)
-        data = json.load(prokofeva.json)
+        data = json.loads(prok.read())
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
@@ -79,7 +79,7 @@ def callback_worker(call):
     elif call.data == 'dvorec':
         dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
         dvor = json.dumps(dvorec.text)
-        data = json.load(dvor)
+        data = json.loads(dvor.read())
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':

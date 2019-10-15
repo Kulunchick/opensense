@@ -2,7 +2,6 @@ import json
 import requests
 import telebot
 from telebot import types
-from telebot import call
 import config
 
 bot = telebot.TeleBot(config.token)
@@ -23,7 +22,7 @@ def start(message):
         keyboard.add(key_prokof);
         key_dvorec = types.InlineKeyboardButton(text='KURAHOVO.ONLINE #3 (Дворец Культуры)', callback_data='dvorec');
         keyboard.add(key_dvorec);
-        bot.send_message(message.chat.id, text=mess, reply_markup=keyboard) #следующий шаг – функция get_country
+        bot.send_message(message.from_user.id, text=mess, reply_markup=keyboard) #следующий шаг – функция get_country
     else:
         bot.send_message(message.from_user.id, 'Напиши /get_statistics');
 

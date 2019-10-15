@@ -2,6 +2,7 @@ import json
 import requests
 import telebot
 from telebot import types
+from telebot import call
 import config
 
 bot = telebot.TeleBot(config.token)

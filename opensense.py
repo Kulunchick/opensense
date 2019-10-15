@@ -32,30 +32,26 @@ def start(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
     if call.data == 'yuhniu':
-        try:
-            yuhniu_answer = '<b>KURAHOVO.ONLINE #1 Южный 18</b>' + '\n'
-            yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
-            f = open(path, "w")
-            f.write(yhnui.text)
-            f.close()
-            with open(path, 'r') as f:
-                data = json.load(f)
-                os.remove(path)
-                for i in data['sensors']:
-                    if i['title'] == 'PM10':
-                        yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'PM2.5':
-                        yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Temperatur':
-                        yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + ' °C. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'rel. Luftfeuchte':
-                        yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + ' %. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Luftdruck':
-                        yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
-                bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode=telegram.ParseMode.HTML)
-        except:
-            eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
-            bot.send_message(call.message.chat.id, eror)
+        yuhniu_answer = '<b>KURAHOVO.ONLINE #1 Южный 18</b>' + '\n'
+        yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
+        f = open(path, "w")
+        f.write(yhnui.text)
+        f.close()
+        with open(path, 'r') as f:
+            data = json.load(f)
+            os.remove(path)
+            for i in data['sensors']:
+                if i['title'] == 'PM10':
+                    yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+                if i['title'] == 'PM2.5':
+                    yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+                if i['title'] == 'Temperatur':
+                    yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + ' °C. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+                if i['title'] == 'rel. Luftfeuchte':
+                    yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + ' %. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+                if i['title'] == 'Luftdruck':
+                    yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
+            bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode=telegram.ParseMode.HTML)
     elif call.data == 'prokof':
         try:
             yuhniu_answer = '<b>KURAHOVO.ONLINE #2 (Проспект Прокофьева)</b>' + '\n'

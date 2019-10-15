@@ -29,23 +29,19 @@ def start(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
     if call.data == 'yuhniu':
-        yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
-        yhn = json.dumps(yhnui.text)
-        data = json.loads(yhn.read())
         try:
+            yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
+            yhn = json.dumps(yhnui.text)
+            data = json.load(yhn)
             for i in data['sensors']:
                 if i['title'] == 'PM10':
                     yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'PM2.5':
                     yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'Temperatur':
                     yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'rel. Luftfeuchte':
                     yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'Luftdruck':
                     yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
             bot.send_message(message.chat.id, yuhniu_answer)
@@ -53,23 +49,19 @@ def callback_worker(call):
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
             bot.send_message(message.chat.id, eror)
     elif call.data == 'prokof':
-        prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
-        prok = json.dumps(prokofeva.text)
-        data = json.loads(prok.read())
         try:
+            prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
+            prok = json.dumps(prokofeva.text)
+            data = json.load(prokofeva.json)
             for i in data['sensors']:
                 if i['title'] == 'PM10':
                     yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'PM2.5':
                     yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'Temperatur':
                     yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'rel. Luftfeuchte':
                     yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'Luftdruck':
                     yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
             bot.send_message(message.chat.id, yuhniu_answer)
@@ -77,23 +69,19 @@ def callback_worker(call):
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
             bot.send_message(message.chat.id, eror)
     elif call.data == 'dvorec':
-        dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
-        dvor = json.dumps(dvorec.text)
-        data = json.loads(dvor.read())
         try:
+            dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
+            dvor = json.dumps(dvorec.text)
+            data = json.load(dvor)
             for i in data['sensors']:
                 if i['title'] == 'PM10':
                     yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'PM2.5':
                     yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'Temperatur':
                     yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'rel. Luftfeuchte':
                     yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-            for i in data['sensors']:
                 if i['title'] == 'Luftdruck':
                     yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + 'Дата:' + str(i["lastMeasurement"]['createdAt'])
             bot.send_message(message.chat.id, yuhniu_answer)

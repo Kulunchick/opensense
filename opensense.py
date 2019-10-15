@@ -33,6 +33,7 @@ def start(message):
 def callback_worker(call):
     if call.data == 'yuhniu':
         try:
+            yuhniu_answer = 'KURAHOVO.ONLINE #1 Южный 18'
             yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
             f = open(path, "w")
             f.write(yhnui.text)
@@ -42,7 +43,7 @@ def callback_worker(call):
                 os.remove(path)
                 for i in data['sensors']:
                     if i['title'] == 'PM10':
-                        yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+                        yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                     if i['title'] == 'PM2.5':
                         yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                     if i['title'] == 'Temperatur':
@@ -57,6 +58,7 @@ def callback_worker(call):
             bot.send_message(call.message.chat.id, eror)
     elif call.data == 'prokof':
         try:
+            yuhniu_answer = 'KURAHOVO.ONLINE #2 (Проспект Прокофьева)'
             prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
             f = open(path, 'w')
             f.write(prokofeva.text)
@@ -66,7 +68,7 @@ def callback_worker(call):
                 os.remove(path)
                 for i in data['sensors']:
                     if i['title'] == 'PM10':
-                        yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+                        yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                     if i['title'] == 'PM2.5':
                         yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                     if i['title'] == 'Temperatur':
@@ -81,6 +83,7 @@ def callback_worker(call):
             bot.send_message(call.message.chat.id, eror)
     elif call.data == 'dvorec':
         try:
+            yuhniu_answer = 'KURAHOVO.ONLINE #3 (Дворец Культуры)'
             dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
             f = open(path, 'w')
             f.write(dvorec.text)
@@ -90,7 +93,7 @@ def callback_worker(call):
                 os.remove(path)
                 for i in data['sensors']:
                     if i['title'] == 'PM10':
-                        yuhniu_answer = "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+                        yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                     if i['title'] == 'PM2.5':
                         yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
                     if i['title'] == 'Temperatur':

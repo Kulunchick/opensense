@@ -54,7 +54,8 @@ def callback_worker(call):
             bot.send_message(message.chat.id, eror)
     elif call.data == 'prokof':
         prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
-        data = json.load(prokofeva.json)
+        prok = json.dumps(prokofeva.text)
+        data = json.load(prok)
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':
@@ -77,7 +78,8 @@ def callback_worker(call):
             bot.send_message(message.chat.id, eror)
     elif call.data == 'dvorec':
         dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
-        data = json.load(dvorec.json)
+        dvor = json.dumps(dvorec.text)
+        data = json.load(dvor)
         try:
             for i in data['sensors']:
                 if i['title'] == 'PM10':

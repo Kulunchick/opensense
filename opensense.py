@@ -1,11 +1,9 @@
 import os
 import json
 import requests
+import config
 import telebot
 from telebot import types
-import config
-
-path = 'example.json'
 
 bot = telebot.TeleBot(config.token)
 
@@ -14,6 +12,23 @@ markdown = """
 _italic text_
 [text](URL)
 """
+
+def get_answer(url):
+    answer = ''
+    data = requests.get(url).json()
+    for i in data['sensors']:
+        if i['title'] == 'PM10':
+            answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+        if i['title'] == 'PM2.5':
+            answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+        if i['title'] == 'Temperatur':
+            answer += "Температура: " + str(i["lastMeasurement"]['value']) + ' °C. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+        if i['title'] == 'rel. Luftfeuchte':
+            answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + ' %. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
+        if i['title'] == 'Luftdruck':
+            answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
+    return answer
+    
 
 @bot.message_handler(commands=["start"])
 def cmd_start1(message):
@@ -39,80 +54,36 @@ def start(message):
 def callback_worker(call):
     if call.data == 'yuhniu':
         try:
-            yuhniu_answer = '*KURAHOVO.ONLINE #1 Южный 18*' + '\n'
-            yhnui = requests.get('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
-            f = open(path, "w")
-            f.write(yhnui.text)
-            f.close()
-            with open(path, 'r') as f:
-                data = json.load(f)
-                os.remove(path)
-                for i in data['sensors']:
-                    if i['title'] == 'PM10':
-                        yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'PM2.5':
-                        yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Temperatur':
-                        yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + ' °C. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'rel. Luftfeuchte':
-                        yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + ' %. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Luftdruck':
-                        yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
-                bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode="Markdown")
+            answer = '*KURAHOVO.ONLINE #1 Южный 18*' + '\n'
+            answer += get_answer('https://api.opensensemap.org/boxes/5d8f31af5f3de0001ae89f62/sensors')
+            bot.answer_callback_query(callback_query_id=call.id)
+            bot.send_message(call.message.chat.id, answer, parse_mode="Markdown")
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
+            bot.answer_callback_query(callback_query_id=call.id)
             bot.send_message(call.message.chat.id, eror)
     elif call.data == 'prokof':
         try:
-            yuhniu_answer = '*KURAHOVO.ONLINE #2 (Проспект Прокофьева)*' + '\n'
-            prokofeva = requests.get('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
-            f = open(path, 'w')
-            f.write(prokofeva.text)
-            f.close()
-            with open(path, 'r') as f:
-                data = json.load(f)
-                os.remove(path)
-                for i in data['sensors']:
-                    if i['title'] == 'PM10':
-                        yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'PM2.5':
-                        yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Temperatur':
-                        yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + ' °C. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'rel. Luftfeuchte':
-                        yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + ' %. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Luftdruck':
-                        yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
-                bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode="Markdown")
+            answer = '*KURAHOVO.ONLINE #2 (Проспект Прокофьева)*' + '\n'
+            answer += get_answer('https://api.opensensemap.org/boxes/5d8f4f945f3de0001af12c46/sensors')
+            bot.answer_callback_query(callback_query_id=call.id)
+            bot.send_message(call.message.chat.id,answer, parse_mode="Markdown")
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
+            bot.answer_callback_query(callback_query_id=call.id)
             bot.send_message(call.message.chat.id, eror)
     elif call.data == 'dvorec':
         try:
-            yuhniu_answer = '*KURAHOVO.ONLINE #3 (Дворец Культуры)*' + '\n'
-            dvorec = requests.get('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
-            f = open(path, 'w')
-            f.write(dvorec.text)
-            f.close()
-            with open(path, 'r') as f:
-                data = json.load(f)
-                os.remove(path)
-                for i in data['sensors']:
-                    if i['title'] == 'PM10':
-                        yuhniu_answer += "PM10: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'PM2.5':
-                        yuhniu_answer += "PM2.5: " + str(i["lastMeasurement"]['value']) + ' µg/m³. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Temperatur':
-                        yuhniu_answer += "Температура: " + str(i["lastMeasurement"]['value']) + ' °C. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'rel. Luftfeuchte':
-                        yuhniu_answer += "Относительная влажность: " + str(i["lastMeasurement"]['value']) + ' %. Последнее изменение:' + str(i["lastMeasurement"]['createdAt']) + '\n'
-                    if i['title'] == 'Luftdruck':
-                        yuhniu_answer += "Давление воздуха: " + str(i["lastMeasurement"]['value']) + ' Pa. Последнее изменение:' + str(i["lastMeasurement"]['createdAt'])
-                bot.send_message(call.message.chat.id, yuhniu_answer, parse_mode="Markdown")
+            answer = '*KURAHOVO.ONLINE #3 (Дворец Культуры)*' + '\n'
+            answer += get_answer('https://api.opensensemap.org/boxes/5d8f55275f3de0001af2ce5b/sensors')
+            bot.answer_callback_query(callback_query_id=call.id)
+            bot.send_message(call.message.chat.id, answer, parse_mode="Markdown")
         except:
             eror = 'Что-то пошло не так, попробуйте снова через 10 секунд.'
+            bot.answer_callback_query(callback_query_id=call.id)
             bot.send_message(call.message.chat.id, eror) 
     else:
+        bot.answer_callback_query(callback_query_id=call.id)
         bot.send_message(call.message.chat.id, "Нажми на нужную тебе кнопку!") 
 
 if __name__ == "__main__":
